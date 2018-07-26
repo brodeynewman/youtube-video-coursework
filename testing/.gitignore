@@ -11,8 +11,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # build
-dist
-build
+/dist
+/build
 
 # Parcel cache
 .cache

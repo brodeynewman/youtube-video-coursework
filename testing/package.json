@@ -4,14 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel ./src/index.html"
+    "dev": "parcel ./src/index.html",
+    "test:cover": "jest --coverage",
+    "open:coverage": "open ./coverage/lcov-report/index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^23.4.1",
     "parcel-bundler": "^1.9.7",
     "react-test-renderer": "^16.4.1"
@@ -23,5 +30,27 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "uuid": "^3.3.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "verbose": true,
+    "roots": [
+      "./__tests__"
+    ],
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 78,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "setupFiles": [
+      "./setupTest"
+    ]
   }
 }

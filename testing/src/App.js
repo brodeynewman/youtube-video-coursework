@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import React from 'react';
 import Text from './components/Text';
 import TodoItem from './components/TodoItem';
+import withSomething from './components/HOC/withSomething';
 
 class App extends React.Component {
   state = {
@@ -78,4 +79,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withSomething(App);
