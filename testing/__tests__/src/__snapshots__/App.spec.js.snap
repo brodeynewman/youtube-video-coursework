@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders correctly 1`] = `
+<div
+  className="root anotherclass class"
+>
+  <div
+    className="todo-container"
+  >
+    <span
+      className="todo-container-title"
+    >
+      Todo Items
+    </span>
+    <div
+      className="todo-input-box"
+    >
+      <span>
+        Create todo item
+      </span>
+      <form
+        onSubmit={[Function]}
+      >
+        <input
+          className="input"
+          onChange={[Function]}
+          value=""
+        />
+      </form>
+    </div>
+    <div
+      className="todo-item--completed"
+    >
+      <div
+        className="todo-title"
+      >
+        This is a todo!
+      </div>
+      <div
+        className="todo-actions"
+      >
+        <button
+          className="todo-complete"
+          onClick={[Function]}
+        >
+          Un-complete
+        </button>
+        <button
+          className="todo-delete"
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -15,13 +15,13 @@ const TodoItem = props => {
       <div className="todo-actions">
         <button
           className="todo-complete"
-          onClick={() => onToggleTodoComplete(id)}
+          onClick={onToggleTodoComplete(id)}
         >
           {
             isCompleted ? 'Un-complete' : 'Complete'
           }
         </button>
-        <button className="todo-delete" onClick={() => onTodoDelete(id)}>Delete</button>
+        <button className="todo-delete" onClick={onTodoDelete(id)}>Delete</button>
       </div>
     </div>
   );

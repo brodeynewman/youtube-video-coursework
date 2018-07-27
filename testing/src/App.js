@@ -5,7 +5,7 @@ import Text from './components/Text';
 import TodoItem from './components/TodoItem';
 import withSomething from './components/HOC/withSomething';
 
-class App extends React.Component {
+export class App extends React.Component {
   state = {
     todoItems: [
       { id: 1, title: "This is a todo!", isCompleted: true },
@@ -13,12 +13,12 @@ class App extends React.Component {
     inputValue: '',
   };
 
-  handleTodoDelete = id =>
+  handleTodoDelete = id => () =>
     this.setState({
       todoItems: _.filter(this.state.todoItems, todo => todo.id !== id),
     });
 
-  handleTodoToggleComplete = id =>
+  handleTodoToggleComplete = id => () =>
     this.setState({
       todoItems: _.map(this.state.todoItems, todo => ({
         ...todo,
@@ -32,7 +32,7 @@ class App extends React.Component {
     isCompleted: false,
   });
 
-  onAddTodo = (event) => {
+  handleAddTodo = (event) => {
     event.preventDefault();
 
     const { todoItems, inputValue } = this.state;
@@ -48,31 +48,34 @@ class App extends React.Component {
       inputValue: target.value,
     });
 
+  mapTodoItemsToTodoComponents = todoItems =>
+    _.map(todoItems, todo => (
+      <TodoItem
+        id={todo.id}
+        key={todo.id}
+        title={todo.title}
+        isCompleted={todo.isCompleted}
+        onTodoDelete={this.handleTodoDelete}
+        onToggleTodoComplete={this.handleTodoToggleComplete}
+      />
+    ));
+
   render() {
     const { todoItems, inputValue } = this.state;
 
     return (
-      <div className="root">
+      <div className="root anotherclass class">
         <div className="todo-container">
           <span className="todo-container-title">Todo Items</span>
           <div className="todo-input-box">
             <span>Create todo item</span>
             <Text
               onInputChange={this.handleInputChange}
-              onAddTodo={this.onAddTodo}
+              onAddTodo={this.handleAddTodo}
               value={inputValue}
             />
           </div>
-          {_.map(todoItems, todo => (
-            <TodoItem
-              id={todo.id}
-              key={todo.id}
-              title={todo.title}
-              isCompleted={todo.isCompleted}
-              onTodoDelete={this.handleTodoDelete}
-              onToggleTodoComplete={this.handleTodoToggleComplete}
-            />
-          ))}
+          {this.mapTodoItemsToTodoComponents(todoItems)}
         </div>
       </div>
     );
