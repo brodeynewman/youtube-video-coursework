@@ -1,18 +1,10 @@
 import React from 'react';
-import withUpdate from './withUpdate';
-import TestComponent from './TestComponent';
+import Count from './components/Count';
 
-class App extends React.Component {
-  state = {};
+const App = () => (
+  <div className="stage">
+    <Count />
+  </div>
+);
 
-  render() {
-    return (
-      <div>
-        hello there
-        <TestComponent />
-      </div>
-    );
-  }
-}
-
-export default withUpdate(App);
+export default App;

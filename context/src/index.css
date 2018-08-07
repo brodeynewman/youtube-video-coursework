@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Khula', sans-serif;
+}
+
+.stage {
+  width: 100%;
+  height: 100vh;
+  background-color: #077CBC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter {
+  padding: 25px;
+  width: 300px;
+  max-width: 300px;
+  min-height: 100px;
+  background-color: #fafafa;
+  border-radius: 3px;
+  color: #666;
+}
+
+.counter-title {
+  color: #111;
+  font-size: 18px;
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.counter-buttons {
+  margin-top: 20px;
+}
+
+.increment {
+  padding: 10px 15px;
+  margin-right: 15px;
+  border-radius: 3px;
+  background-color: #077CBC;
+  color: #fff;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.decrement {
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: firebrick;
+  color: #fff;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.increment:hover {
+  opacity: .8;
+}
+
+.decrement:hover {
+  opacity: .8;
+}
+
+.count {
+  padding-left: 8px;
+}

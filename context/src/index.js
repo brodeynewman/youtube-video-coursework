@@ -1,14 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import './index.css';
 import App from './App';
-import Updater from './update';
-
-const model = { count: 0 };
-export const Store = React.createContext();
+import MyProvider from './components/Provider';
 
 render(
-  <Updater Store={Store} model={model}>
+  <MyProvider>
     <App />
-  </Updater>,
-  document.getElementById('root')
+  </MyProvider>,
+  document.getElementById('root'),
 );
