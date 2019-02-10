@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Link from '../Link';
 
@@ -16,6 +17,14 @@ const Header = (props) => {
       </div>
     </div>
   );
-}
+};
+
+Header.propTypes = {
+  links: PropTypes.arrayOf(PropTypes.shape({
+    to: PropTypes.string,
+    requireAuth: PropTypes.bool,
+    name: PropTypes.string,
+  })).isRequired,
+};
 
 export default Header;
