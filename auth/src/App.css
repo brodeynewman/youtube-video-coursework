@@ -1,0 +1,9 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@tailwind utilities;
+
+body {
+  font-family: 'Fira Sans', sans-serif !important;
+}
