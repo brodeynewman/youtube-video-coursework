@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const LinkComponent = (props) => {
   const { to, name } = props;
 
-  return <Link to={to}>{name}</Link>;
+  return <Link className="ml-5 text-indigo-darkest pb-2 no-underline border-b border-grey-dark" to={to}>{name}</Link>;
 };
 
 LinkComponent.propTypes = {

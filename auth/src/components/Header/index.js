@@ -9,7 +9,7 @@ const Header = (props) => {
 
   return (
     <div className="bg-white p-8 border-b border-solid border-grey flex justify-between">
-      <div>
+      <div className="text-indigo-darkest font-medium">
         Company
       </div>
       <div>
