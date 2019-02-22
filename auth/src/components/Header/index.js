@@ -13,7 +13,7 @@ const Header = (props) => {
         Company
       </div>
       <div>
-        {_.map(links, link => <Link {...link} />)}
+        {_.map(links, link => <Link key={link.name} {...link} />)}
       </div>
     </div>
   );

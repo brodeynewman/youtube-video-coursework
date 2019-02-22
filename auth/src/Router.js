@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from './pages/home';
-import Dashboard from './pages/dashboard';
 import Unauth from './pages/unauth';
+import Dashboard from './pages/dashboard';
 
 const Router = () => (
   <Switch>
