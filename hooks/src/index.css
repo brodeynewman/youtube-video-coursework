@@ -1,0 +1,36 @@
+.filters li button {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.filters li button:hover {
+	border-color: rgba(175, 47, 47, 0.1);
+}
+
+.todoapp .header h1 span {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.filters li button.selected {
+	border-color: rgba(175, 47, 47, 0.2);
+}
+
+.footer {
+  color: #777;
+  padding: 10px 15px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  border-top: 1px solid #e6e6e6;
+  align-items: center;
+}
+
+.destroy {
+  cursor: pointer;
+}
