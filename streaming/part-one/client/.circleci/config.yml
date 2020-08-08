@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - checkout
+      - run: chmod +x ./scripts/build.sh && ./scripts/build.sh
+      - run: npm install
+
+      - run: npm run test
+      - run: npm run lint
+      - run: npm run build
+      - run: sudo apt-get -y -qq install awscli 
+      - run: chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh
