@@ -1,12 +1,8 @@
 import React from 'react';
 
-import Header from '../components/Header';
-
 const Page = ({ children }) => (
-  <div classNameName="flex items-center min-h-screen font-sans bg-grey-200">
-    <div classNameName="container mx-auto text-center">
-      <Header />
-
+  <div className="flex items-center min-h-screen font-sans bg-gray-200">
+    <div className="container mx-auto text-center">
       {children}
     </div>
   </div>

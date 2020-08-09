@@ -1,12 +1,11 @@
 import React from 'react';
 
 import Page from '../../layout/Page';
-import StreamCard from '../../components/StreamCard';
+import CreateStreamForm from '../../components/CreateStreamForm';
 
 const Home = () => (
   <Page>
-    <StreamCard />
-    <StreamCard />
+    <CreateStreamForm />
   </Page>
 );
 
