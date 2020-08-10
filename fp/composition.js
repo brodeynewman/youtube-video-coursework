@@ -18,6 +18,7 @@ console.log(addAndMultiply(2));
 // real world example
 // const filterByEven = num => num % 2 === 0;
 
+// imperative approach
 const filterbyEvenAndMultiply = (array) => {
   const filtered = array.filter(num => num % 2 === 0);
   const mapped = array.map(num => num * 2);
@@ -31,10 +32,12 @@ console.log(filterbyEvenAndMultiply([1, 2, 3, 4, 5, 6]));
 
 const filter = curry((fn, arr) => arr.filter(fn));
 const map = curry((fn, arr) => arr.map(fn));
+const isEven = num => num % 2 === 0;
 
+// declarative approach.
 const composed = compose(
-  // map(num => num * 2),
-  filter(num => num % 2 === 0),
+  map(multiply),
+  filter(isEven),
 );
 
 console.log(composed([2, 3, 4, 5, 6]))

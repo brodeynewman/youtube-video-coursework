@@ -19,3 +19,16 @@ const curry = fn => function curry(...args) {
 // these are now curried
 const filter = curry((fn, arr) => arr.filter(fn));
 const map = curry((fn, arr) => arr.map(fn));
+
+const isEven = num => num % 2 === 0;
+const filterIsEven = filter(isEven);
+
+console.log(filterIsEven([1, 2, 3, 4]));
+
+const result = filter(isEven)([1, 2, 3, 4]);
+
+console.log(result);
+
+// hmm... this looks pretty similar to redux's connect doesn't it?
+
+connect(mapStateToProps)(MyComponent); // react / redux uses a lot of these functional programming concepts :)
