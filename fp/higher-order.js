@@ -1,41 +1,55 @@
-// Higher order functions are ways of wrapping funtions in order to create re-usable logic.
 
-// Typical naming convention for these functions are 'withX` like `withGreeting` or `withErrorHandling`.
-// The same naming convention applies in React with Higher Order Components.
+/***** FIRST EXAMPLE *****/
 
-const throwWithError = (statusCode, err) => customError => (
-  throw Object.assign(new Error, {
-    code: statusCode,
-    message: customError || err,
-  }));
+const foo = () => {};
 
-const throwHttpNotFound = throwWithError(404, 'Resource not found');
+console.log(foo);
 
-const getSingleUser = async (request, response) => {
-  const { id } = request.params;
-
-  const user = await DB.find({ id });
-
-  if (!user) {
-    throwHttpNotFound();
-  }
-
-  response.status(200).json(user);
-}
-
-const withErrorHandling = fn => async (request, response) => {
-  try {
-    await fn(request, response);
-  } catch (e) {
-    // this code & message are configured wherever the error is thrown.
-    const { code, message } = e;
-
-    console.log(message);
-
-    response.status(code).send(message);
-  }
+const bar = () => {
+  return () => {
+    console.log('hello there');
+  };
 };
 
-const getSingleUserWithErrorHandling = withErrorHandling(getSingleUser);
+bar()();
 
-app.get('/user/:id', getSingleUserWithErrorHandling);
+/***** SECOND EXAMPLE *****/
+
+const updateNumbers = numbers => numbers.map(num => num + 2);
+console.log(updateNumbers([1, 2, 3]));
+
+/***** THIRD EXAMPLE *****/
+
+const map = (array, callback) => {
+  const updated = [];
+
+  for (let i = 0; i < array.length; i++) {
+    const update = callback(array[i]);
+
+    updated.push(update);
+  }
+
+  return updated;
+}
+
+const result = map([1, 2, 3], num => num + 2);
+console.log('here', result);
+
+/***** FOURTH EXAMPLE *****/
+
+// ES6
+// const greeter = greeting => name => console.log(`${greeting}, ${name}!`);
+
+function greeter(greeting) {
+  return function(name) {
+    return `${greeting}, ${name}!`;
+  }
+}
+
+const withHello = greeter('Hello');
+
+const names = ['Brodey', 'Youtube', 'Sally'];
+
+const updatedGreetings = names.map(withHello);
+
+console.log(updatedGreetings);
