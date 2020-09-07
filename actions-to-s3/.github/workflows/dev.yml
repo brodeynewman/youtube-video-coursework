@@ -1,0 +1,42 @@
+name: s3 deployment
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: NPM Install
+        run: npm ci
+
+      - name: Build React App
+        run: DEVGRID_STAGE=dev npm run build
+        env:
+          CI: true
+
+      - name: Copy files to the S3 Bucket with the AWS CLI
+        run: aws s3 sync ./dist s3://everlook-youtube
+
+      - name: Invalidate Cloudfront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E1PB9UVARKVPBN \
+            --paths "/*"
