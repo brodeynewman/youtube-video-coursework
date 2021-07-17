@@ -1,0 +1,15 @@
+node_modules
+**/terraform.tfstate*
+**/.terraform*
+
+.env
+/.serverless
+/coverage
+/stage-configs
+
+.webpack*
+.idea/
+
+.DS_Store
+[Dd]esktop.ini
+Thumbs.db

@@ -1,0 +1,4 @@
+.serverless
+coverage
+.webpack*
+.idea

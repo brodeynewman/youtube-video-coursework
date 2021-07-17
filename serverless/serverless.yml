@@ -1,0 +1,106 @@
+# Your service here
+service: serverless-boilerplate
+
+frameworkVersion: '2'
+configValidationMode: error
+variablesResolutionMode: 20210219
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-aws-alerts
+  - serverless-prune-plugin
+  - serverless-pseudo-parameters
+
+package:
+  individually: true
+  patterns:
+    - 'src/**'
+    - '!src/**/*.test.js'
+    - '!jest*'
+    - '!scripts/**'
+    - '!stage-configs/**'
+
+custom:
+  alerts:
+    stages:
+      - test
+      - staging
+      - production
+    nameTemplate: $[functionName]-$[metricName]
+    topics:
+      alarm:
+        topic: ${self:service}-${opt:stage}-alerts-alarm
+      ok:
+        topic: ${self:service}-${opt:stage}-alerts-ok
+    definitions:
+      functionErrors:
+        period: 900 # 15 minutes
+      functionThrottles:
+        period: 900 # 15 minutes
+      functionDuration:
+        period: 900 # 15 minutes
+        threshold: 60000 # ms (1 minute)
+    alarms:
+      - functionErrors
+      - functionThrottles
+      - functionDuration
+  prune:
+    automatic: true
+    number: ${self:custom.stageConfig.pruneNumber}
+  serverless-offline:
+    httpPort: 8080
+  stageConfig: ${file(stage-configs/${self:provider.stage}.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage}
+  region: ${self:custom.stageConfig.region}
+  logRetentionInDays: ${self:custom.stageConfig.logRetentionInDays}
+  lambdaHashingVersion: 20201221
+
+  apiKeys:
+    - ${self:service}-${self:provider.stage}-apikey
+
+  environment:
+    # This will pull secrets values from a secrets manager secret called 'your-app'.
+    # You should create a secret specifically for your app and update this line.
+    SOME_VAR: !Sub '{{resolve:secretsmanager:your-app:SecretString:SOME_VAR}}'
+
+  # iam:
+  #   role:
+  #     statements:
+  #       - Effect: 'Allow'
+  #         Action:
+  #           - 'secretsmanager:GetSecretValue'
+  #         Resource: ${env:SECRETS_ARN}
+
+  # Uncomment if you have VPC configuration.
+  # vpc:
+  #   securityGroupIds: ${self:custom.stageConfig.securityGroupIds}
+  #   subnetIds: ${self:custom.stageConfig.subnetIds}
+
+functions:
+  # API lambda. API gateway attachment.
+  api:
+    # 29 sec API gateway timeout max
+    timeout: 29
+    handler: src/functions/api/index.handler
+    name: v1-${self:service}-${self:provider.stage}
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+          private: true
+
+  # monitor:
+  #   name: ${opt:stage, self:provider.stage, 'test'}-serverless-monitor
+  #   handler: src/functions/monitor/index.compute
+  #   # 15 min timeout
+  #   timeout: 900
+  #   events:
+  #     # Every 1 min
+  #     - schedule: cron(* * * * ? *)
+  #       name: ${opt:stage, self:provider.stage, 'test'}-service-monitoring-schedule

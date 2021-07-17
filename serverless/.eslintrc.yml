@@ -1,0 +1,30 @@
+# In this configuration, `es2017` and `ecmaVersion: 2019` correspond with
+# Node.js v12, which this package currently targets, and which is the latest
+# supported by AWS Lambda.
+env:
+  es2017: true
+  node: true
+extends:
+  - 'eslint:recommended'
+  # Disable ESLint rules that can conflict with Prettier:
+  - 'prettier'
+ignorePatterns:
+  - 'coverage'
+overrides:
+  - files:
+      - '*.test.js'
+    extends:
+      - 'plugin:jest/recommended'
+      - 'plugin:jest/style'
+parserOptions:
+  ecmaVersion: 2019
+  sourceType: module
+plugins:
+  - jest
+reportUnusedDisableDirectives: true
+# Prevent any global ESLint configuration from bleeding into this one, which
+# can cause inconsistent developer experiences.
+root: true
+rules:
+  # Lowers the volume on this rule, which is annoying for stubbing and TDD:
+  no-unused-vars: 'warn'

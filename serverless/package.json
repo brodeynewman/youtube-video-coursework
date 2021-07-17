@@ -1,0 +1,41 @@
+{
+  "name": "your-service-here",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">= 12.x",
+    "npm": ">= 6.x"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "style:check": "prettier --check . || true",
+    "style:fix": "prettier --write . || true",
+    "test:cover": "jest --coverage",
+    "open:coverage": "open ./coverage/lcov-report/index.html",
+    "start": "NODE_ENV=development AWS_PROFILE=default sls offline --stage=test"
+  },
+  "dependencies": {
+    "@vendia/serverless-express": "^4.3.4",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "aws-sdk": "^2.876.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-jest": "^24.3.2",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "serverless": "^2.32.0",
+    "serverless-offline": "^6.9.0",
+    "serverless-plugin-aws-alerts": "^1.7.1",
+    "serverless-prune-plugin": "^1.4.4",
+    "serverless-pseudo-parameters": "^2.5.0"
+  }
+}
