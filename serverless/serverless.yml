@@ -22,29 +22,6 @@ package:
     - '!stage-configs/**'
 
 custom:
-  alerts:
-    stages:
-      - test
-      - staging
-      - production
-    nameTemplate: $[functionName]-$[metricName]
-    topics:
-      alarm:
-        topic: ${self:service}-${opt:stage}-alerts-alarm
-      ok:
-        topic: ${self:service}-${opt:stage}-alerts-ok
-    definitions:
-      functionErrors:
-        period: 900 # 15 minutes
-      functionThrottles:
-        period: 900 # 15 minutes
-      functionDuration:
-        period: 900 # 15 minutes
-        threshold: 60000 # ms (1 minute)
-    alarms:
-      - functionErrors
-      - functionThrottles
-      - functionDuration
   prune:
     automatic: true
     number: ${self:custom.stageConfig.pruneNumber}
@@ -54,7 +31,7 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   stage: ${opt:stage}
   region: ${self:custom.stageConfig.region}
   logRetentionInDays: ${self:custom.stageConfig.logRetentionInDays}
@@ -94,13 +71,3 @@ functions:
           method: ANY
           cors: true
           private: true
-
-  # monitor:
-  #   name: ${opt:stage, self:provider.stage, 'test'}-serverless-monitor
-  #   handler: src/functions/monitor/index.compute
-  #   # 15 min timeout
-  #   timeout: 900
-  #   events:
-  #     # Every 1 min
-  #     - schedule: cron(* * * * ? *)
-  #       name: ${opt:stage, self:provider.stage, 'test'}-service-monitoring-schedule
